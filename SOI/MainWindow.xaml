@@ -1,0 +1,23 @@
+﻿<Window x:Class="SOI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SOI"
+        mc:Ignorable="d"
+        Title="SOI" Height="650" Width="1000">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="550"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Label Content="{Binding ElementName=FrMain, Path=Content.Title}" Width="500" Height="70"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1">
+            <Frame x:Name="FrMain" NavigationUIVisibility="Hidden"/>
+        </StackPanel>
+    </Grid>
+</Window>
