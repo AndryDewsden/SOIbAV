@@ -2,7 +2,9 @@
 SOIbAV
 
 База данных:
--
+
+![БД](https://github.com/user-attachments/assets/a223ff51-b338-44d8-b90b-d80279e1a275)
+
 
 Функции:
 -
