@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SOI.AppicationData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,19 +13,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using SOI.Pages;
 
-namespace SOI
+namespace SOI.Pages
 {
-    public partial class MainWindow : Window
+    public partial class offPage : Page
     {
-        public MainWindow()
+        SOI_Users current_user = new SOI_Users();
+        SOI_Assets current_asset = new SOI_Assets();
+        public offPage(SOI_Users current_user, SOI_Assets current_asset)
         {
             InitializeComponent();
-
-            AppConnect.model = new AppicationData.Entities();
-            AppFrame.frameMain = FrMain;
-            FrMain.Navigate(new Autorisation());
+            this.current_user = current_user;
+            this.current_asset = current_asset;
         }
     }
 }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d2dedc75d5ab4e14845f14749f68cd46" Name="Diagram1">
+        <EntityTypeShape EntityType="SOI_databaseModel.SOI_Answers" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SOI_databaseModel.SOI_Asset_Statuses" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SOI_databaseModel.SOI_Asset_Types" Width="1.5" PointX="0.75" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SOI_databaseModel.SOI_Assets" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="SOI_databaseModel.SOI_Locations" Width="1.5" PointX="0.75" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="SOI_databaseModel.SOI_Offs" Width="1.5" PointX="8.25" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SOI_databaseModel.SOI_Owns" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SOI_databaseModel.SOI_Report_Types" Width="1.5" PointX="3" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SOI_databaseModel.SOI_Reports" Width="1.5" PointX="5.25" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SOI_databaseModel.SOI_Reques_Statuses" Width="1.5" PointX="6" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SOI_databaseModel.SOI_Requests" Width="1.5" PointX="8.25" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SOI_databaseModel.SOI_User_Roles" Width="1.5" PointX="0.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SOI_databaseModel.SOI_Users" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SOI_databaseModel.sysdiagrams" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="SOI_databaseModel.FK_SOI_Answers_SOI_Assets" ManuallyRouted="false" />
+        <AssociationConnector Association="SOI_databaseModel.FK_SOI_Answers_SOI_Requests" ManuallyRouted="false" />
+        <AssociationConnector Association="SOI_databaseModel.FK_SOI_Answers_SOI_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="SOI_databaseModel.FK_SOI_Assets_SOI_Asset_Statuses" ManuallyRouted="false" />
+        <AssociationConnector Association="SOI_databaseModel.FK_SOI_Assets_SOI_Asset_Types" ManuallyRouted="false" />
+        <AssociationConnector Association="SOI_databaseModel.FK_SOI_Requests_SOI_Asset_Types" ManuallyRouted="false" />
+        <AssociationConnector Association="SOI_databaseModel.FK_SOI_Assets_SOI_Locations" ManuallyRouted="false" />
+        <AssociationConnector Association="SOI_databaseModel.FK_SOI_Owns_SOI_Assets" ManuallyRouted="false" />
+        <AssociationConnector Association="SOI_databaseModel.FK_SOI_Offs_SOI_Owns" ManuallyRouted="false" />
+        <AssociationConnector Association="SOI_databaseModel.FK_SOI_Offs_SOI_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="SOI_databaseModel.FK_SOI_Owns_SOI_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="SOI_databaseModel.FK_SOI_Reports_SOI_Report_Types" ManuallyRouted="false" />
+        <AssociationConnector Association="SOI_databaseModel.FK_SOI_Reports_SOI_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="SOI_databaseModel.FK_SOI_Requests_SOI_Reques_Statuses" ManuallyRouted="false" />
+        <AssociationConnector Association="SOI_databaseModel.FK_SOI_Requests_SOI_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="SOI_databaseModel.FK_SOI_Users_SOI_User_Roles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

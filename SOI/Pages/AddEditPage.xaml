@@ -8,24 +8,111 @@
       d:DesignHeight="550" d:DesignWidth="1000">
 
     <Grid>
-        <StackPanel Margin="20">
-            <TextBlock Text="Добавление/Редактирование Оборудования" FontSize="20" FontWeight="Bold" Margin="0,0,0,20"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="400"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
 
-            <TextBox x:Name="nameEquipment" Margin="0,0,0,10" Width="300" Height="30"/>
-            <TextBox x:Name="quantityBox" Margin="0,0,0,10" PreviewTextInput="quantityBox_PreviewTextInput" Width="300" Height="30"/>
-            <TextBox x:Name="priceBox" Margin="0,0,0,10" PreviewTextInput="priceBox_PreviewTextInput" Width="300" Height="30"/>
+        <Border Grid.Row="0" Background="#E0FFFF" BorderBrush="Black" BorderThickness="1" CornerRadius="15" Margin="5">
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
 
-            <ComboBox x:Name="specificationCombo" Margin="0,0,0,10" Width="300" Height="30">
-                <ComboBoxItem Content="-выбрать-"/>
-            </ComboBox>
-            <ComboBox x:Name="supplierCombo" Margin="0,0,0,10" Width="300" Height="30">
-                <ComboBoxItem Content="-выбрать-"/>
-            </ComboBox>
+                <StackPanel Grid.Column="0" Margin="0,15,0,0">
+                    <Label Content="Оборудование" Height="30" Width="200" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold"/>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <Label Content="Наименование:" Height="30" Width="150" Margin="0" VerticalContentAlignment="Center" FontWeight="Bold"/>
+                        <Grid>
+                            <TextBox Text="{Binding asset_name}" x:Name="tbx_name_asset" Height="30" Width="300" Margin="0" VerticalContentAlignment="Center" LostFocus="tbx_name_asset_LostFocus"/>
+                            <TextBox Text="Наименование" x:Name="tbx_name_asset_placeholder" Height="30" Width="300" Margin="0" VerticalContentAlignment="Center" Foreground="#808080" GotFocus="tbx_name_asset_placeholder_GotFocus"/>
+                        </Grid>
+                    </StackPanel>
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0" >
-                <Button Content="Сохранить" Click="Save_Click" Margin="0,0,10,0" Width="300" Height="30"/>
-                <Button Content="Назад" Click="GoBack_Click" Width="300" Height="30"/>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <Label Content="Тип оборудования:" Height="30" Width="150" Margin="0" VerticalContentAlignment="Center" FontWeight="Bold"/>
+                        <ComboBox SelectedIndex="{Binding asset_type_id}" DisplayMemberPath="asset_type" x:Name="cbx_asset_type" Height="30" Width="300" Margin="0" VerticalContentAlignment="Center"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <Label Content="Серийный номер:" Height="30" Width="150" Margin="0" VerticalContentAlignment="Center" FontWeight="Bold"/>
+                        <Grid>
+                            <TextBox Text="{Binding asset_serial_number}" x:Name="tbx_asset_number" Height="30" Width="300" Margin="0" VerticalContentAlignment="Center" LostFocus="tbx_asset_number_LostFocus"/>
+                            <TextBox Text="Серийный номер" x:Name="tbx_asset_number_placeholder" Height="30" Width="300" Margin="0" VerticalContentAlignment="Center" Foreground="#808080" GotFocus="tbx_asset_number_placeholder_GotFocus"/>
+                        </Grid>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <Label Content="Статус:" Height="30" Width="150" Margin="0" VerticalContentAlignment="Center" FontWeight="Bold"/>
+                        <ComboBox SelectedIndex="{Binding asset_status_id}" DisplayMemberPath="asset_status_name" x:Name="cbx_asset_status" Height="30" Width="300" Margin="0" VerticalContentAlignment="Center" DropDownClosed="cbx_asset_status_DropDownClosed"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <Label Content="Местоположение:" Height="30" Width="150" Margin="0" VerticalContentAlignment="Center" FontWeight="Bold"/>
+                        <ComboBox SelectedIndex="{Binding asset_location_id}" DisplayMemberPath="location_number" x:Name="cbx_asset_location" Height="30" Width="300" Margin="0" VerticalContentAlignment="Center"/>
+                    </StackPanel>
+
+                    <Label Content="Комментарий:" Height="30" Margin="5" VerticalContentAlignment="Center" FontWeight="Bold"/>
+                    <Grid Margin="5" HorizontalAlignment="Left">
+                        <TextBox Text="{Binding asset_comment}" x:Name="tbx_asset_comment" Height="90" Width="450" Margin="0" VerticalContentAlignment="Top" LostFocus="tbx_asset_comment_LostFocus"/>
+                        <TextBox Text="Комментарий" x:Name="tbx_asset_comment_placeholder" Height="90" Width="450" Margin="0" VerticalContentAlignment="Top" Foreground="#808080" GotFocus="tbx_asset_comment_placeholder_GotFocus"/>
+                    </Grid>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Vertical" Margin="0,15,0,0">
+                    <StackPanel x:Name="OwnPanel">
+                        <Label Content="Владение оборудованием" Height="30" Width="200" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontWeight="bold"/>
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <Label Content="Владелец:" Height="30" Width="150" Margin="0" VerticalContentAlignment="Center" FontWeight="Bold"/>
+                            <ComboBox SelectedIndex="{Binding SOI_Owns.SOI_Users}" DisplayMemberPath="user_first_name" x:Name="cbx_asset_owner" Height="30" Width="300" Margin="0" VerticalContentAlignment="Center"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <Label Content="Дата присвоения:" Height="30" Width="150" Margin="0" VerticalContentAlignment="Center" FontWeight="Bold"/>
+                            <DatePicker x:Name="dbx_asset_own_date" Height="30" Width="300" Margin="0" VerticalContentAlignment="Center"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel x:Name="offPanel">
+                        <Label Content="Списание" Height="30" Width="200" HorizontalAlignment="Center" FontWeight="Bold" HorizontalContentAlignment="Center"/>
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <Label Content="Дата Списания:" Height="30" Width="150" Margin="0" VerticalContentAlignment="Center" FontWeight="Bold"/>
+                            <DatePicker x:Name="dbx_asset_off_date" Height="30" Width="300" Margin="0" VerticalContentAlignment="Center"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <Label Content="Причина списания:" Height="30" Width="150" Margin="0" VerticalContentAlignment="Center" FontWeight="Bold"/>
+                            <Grid>
+                                <TextBox Text="{Binding asset_comment}" x:Name="tbx_off_reason" Height="30" Width="300" Margin="0" VerticalContentAlignment="Center" LostFocus="tbx_asset_comment_LostFocus"/>
+                                <TextBox Text="Причина списания" x:Name="tbx_off_reason_placeholder" Height="30" Width="300" Margin="0" VerticalContentAlignment="Center" Foreground="#808080" GotFocus="tbx_asset_comment_placeholder_GotFocus"/>
+                            </Grid>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <Label Content="Ссылка на документ:" Height="30" Width="150" Margin="0" VerticalContentAlignment="Center" FontWeight="Bold"/>
+                            <Grid>
+                                <TextBox Text="{Binding asset_comment}" x:Name="tbx_off_link" Height="30" Width="300" Margin="0" VerticalContentAlignment="Center" LostFocus="tbx_asset_comment_LostFocus"/>
+                                <TextBox Text="Ссылка на документ" x:Name="tbx_off_link_placeholder" Height="30" Width="300" Margin="0" VerticalContentAlignment="Center" Foreground="#808080" GotFocus="tbx_asset_comment_placeholder_GotFocus"/>
+                            </Grid>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <Label Content="Ответственный:" Height="30" Width="150" Margin="0" VerticalContentAlignment="Center" FontWeight="Bold"/>
+                            <ComboBox SelectedIndex="{Binding off_responsible_user_id}" DisplayMemberPath="user_login" x:Name="cbx_asset_off_responsible_user" Height="30" Width="300" Margin="0" VerticalContentAlignment="Center"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" Background="#E0FFFF" CornerRadius="15" Margin="5" MinWidth="800" MaxWidth="900" MinHeight="50" MaxHeight="70">
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="Add" Content="Добавить оборудование" Width="180" Height="30"  Margin="5" Click="Add_Click" Background="#4682B4" Foreground="#E0FFFF"/>
+                <Button x:Name="Red" Content="Редактировать оборудование" Width="180" Height="30" Margin="5" Click="Red_Click" Background="#4682B4" Foreground="#E0FFFF"/>
+                <Button x:Name="list" Content="Список оборудования" Width="180" Height="30" Margin="5" Click="list_Click" Background="#4682B4" Foreground="#E0FFFF"/>
+                <Button x:Name="goBack" Content="Назад" Width="180" Height="30" Margin="5" Click="goBack_Click" Background="#4682B4" Foreground="#E0FFFF"/>
             </StackPanel>
-        </StackPanel>
+        </Border>
     </Grid>
 </Page>

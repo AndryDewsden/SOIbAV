@@ -10,33 +10,110 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="450"/>
-            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Margin="0,5">
+        <Grid Grid.Row="0" Margin="0,5" HorizontalAlignment="Center" Width="980">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                <TextBox x:Name="Searcher" Width="200" Height="30" Margin="5,0" TextChanged="Searcher_TextChanged" />
-                <ComboBox x:Name="Filter" Width="120" Height="30" Margin="5,0" SelectionChanged="Filter_SelectionChanged"/>
-                <ComboBox x:Name="Sorter" Width="120" Height="30" Margin="5,0" SelectionChanged="Sorter_SelectionChanged"/>
-                <Label x:Name="Counter" Margin="5,0" Width="300" Height="30" HorizontalContentAlignment="Center"/>
+                <Label Content="Поиск" VerticalContentAlignment="Center" Width="50" Margin="5,0,0,0" HorizontalContentAlignment="Center"/>
+                <Grid>
+                    <TextBox x:Name="Searcher" VerticalContentAlignment="Center" Margin="5,0,0,0" Width="200" Height="30" TextChanged="Searcher_TextChanged" LostFocus="Searcher_LostFocus"/>
+                    <TextBox x:Name="SearcherPlaceHolder" Text="Поиск..." Foreground="#808080" VerticalContentAlignment="Center" Margin="5,0,0,0" Width="200" Height="30" GotFocus="SearcherPlaceHolder_GotFocus"/>
+                </Grid>
+                <Label Content="Фильтр" VerticalContentAlignment="Center" Margin="5,0,0,0" Width="60" HorizontalContentAlignment="Center"/>
+                <ComboBox x:Name="Filter" VerticalContentAlignment="Center" Margin="5,0,0,0" Width="200" Height="30" SelectedIndex="0" SelectionChanged="Filter_SelectionChanged"/>
+                <Label Content="Сортировшик" VerticalContentAlignment="Center" Margin="5,0,0,0" Width="80" HorizontalContentAlignment="Center" Visibility="Collapsed"/>
+                <ComboBox x:Name="Sorter" VerticalContentAlignment="Center" Margin="5,0,0,0" Width="200" Height="30" SelectedIndex="0" SelectionChanged="Sorter_SelectionChanged" Visibility="Collapsed"/>
+                <Label x:Name="Counter" Margin="5,0,0,0" Width="300" Height="30" HorizontalContentAlignment="Center"/>
             </StackPanel>
         </Grid>
 
         <Grid Grid.Row="1">
-            <ListView x:Name="listEquipment" ScrollViewer.CanContentScroll="False">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="{Binding ImagePath}" Width="100" Height="100"/>
-                            <TextBlock Text="{Binding Name}" Margin="10,0"/>
-                            <TextBlock Text="{Binding Type}" Margin="10,0"/>
-                            <TextBlock Text="{Binding Status}" Margin="10,0"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="800"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Top" Margin="10,5,0,0">
+                <Button x:Name="userDisplay" Content="Пользователь" Width="180" Height="30" Margin="5" Background="#4682B4" Foreground="#E0FFFF" Click="userDisplay_Click"/>
+                <Button x:Name="addButton" Content="Добавить оборудование" Width="180" Height="30" Margin="5" Background="#4682B4" Foreground="#E0FFFF" Click="addButton_Click"/>
+                <Button x:Name="editButton" Content="Редактировать оборудование" Width="180" Height="30" Margin="5" Background="#4682B4" Foreground="#E0FFFF" Click="editButton_Click"/>
+                <Button x:Name="delButton" Content="Списать оборудование" Width="180" Height="30" Margin="5" Background="#4682B4" Foreground="#E0FFFF" Click="delButton_Click" Visibility="Collapsed"/>
+                <Button x:Name="bt_go_request" Content="Заявки на оборудование" Width="180" Height="30" Margin="5" Background="#4682B4" Foreground="#E0FFFF" Click="bt_go_request_Click" />
+            </StackPanel>
+            
+            <StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" MinWidth="780">
+                <ListView x:Name="listAssets" ScrollViewer.CanContentScroll="False" Background="#AFEEEE" Height="420" Margin="10">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderThickness="1" BorderBrush="#000000" Background="#ffffff">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="200"/>
+                                        <ColumnDefinition Width="220"/>
+                                        <ColumnDefinition Width="220"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Grid.Column="0" Width="auto" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5">
+                                        <TextBlock>
+                                            <Run Text="Наименование: " FontWeight="Bold"/>
+                                            <Run Text="{Binding asset_name}"/>
+                                        </TextBlock>
+                                        <TextBlock>
+                                            <Run Text="Тип: " FontWeight="Bold"/>
+                                            <Run Text="{Binding SOI_Asset_Types.asset_type}"/>
+                                        </TextBlock>
+                                        <TextBlock>
+                                            <Run Text="Серийный номер: " FontWeight="Bold"/>
+                                            <Run Text="{Binding asset_serial_number}"/>
+                                        </TextBlock>
+
+                                        <TextBlock>
+                                            <Run Text="Статус: " FontWeight="Bold"/>
+                                            <Run Text="{Binding SOI_Asset_Statuses.asset_status_name}"/>
+                                        </TextBlock>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="1" Width="auto" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5">
+                                        <TextBlock>
+                                            <Run Text="Владелец: " FontWeight="Bold"/>
+                                            <Run Text="{Binding SOI_Owns.SOI_Users.user_first_name}"/>
+                                        </TextBlock>
+
+                                        <TextBlock>
+                                            <Run Text="Введён в эксплуатацию: " FontWeight="Bold"/>
+                                            <Run Text="{Binding SOI_Owns.own_date}"/>
+                                        </TextBlock>
+
+                                        <TextBlock>
+                                            <Run Text="Местоположение: " FontWeight="Bold"/>
+                                            <Run Text="{Binding SOI_Locations.location_number}"/>
+                                        </TextBlock>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="2" Orientation="Vertical">
+                                        <TextBlock>
+                                            <Run Text="Комментарий: " FontWeight="Bold"/>
+                                        </TextBlock>
+                                        <TextBlock>
+                                            <Run Text="{Binding asset_comment}"/>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.ContextMenu>
+                        <ContextMenu x:Name="ConMenu">
+                            <MenuItem x:Name="addConMenu" Header="Добавить оборудование" Click="addConMenu_Click" />
+                            <MenuItem x:Name="editConMenu" Header="Редактировать оборудование" Click="editConMenu_Click" />
+                            <MenuItem x:Name="spiConMenu" Header="Списать оборудование" Click="spiConMenu_Click" Visibility="Collapsed"/>
+                            <MenuItem x:Name="delConMenu" Header="Удалить оборудование" Click="delConMenu_Click" Visibility="Collapsed"/>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
+                </ListView>
+            </StackPanel>
         </Grid>
     </Grid>
 </Page>

@@ -12,19 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using SOI.Pages;
 
-namespace SOI
+namespace SOI.Pages
 {
-    public partial class MainWindow : Window
+    /// <summary>
+    /// Логика взаимодействия для ReportPage.xaml
+    /// </summary>
+    public partial class ReportPage : Page
     {
-        public MainWindow()
+        public ReportPage()
         {
             InitializeComponent();
-
-            AppConnect.model = new AppicationData.Entities();
-            AppFrame.frameMain = FrMain;
-            FrMain.Navigate(new Autorisation());
         }
     }
 }

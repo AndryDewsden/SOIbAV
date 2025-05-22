@@ -5,15 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SOI"
         mc:Ignorable="d"
-        Title="SOI" Height="650" Width="1000">
+        Title="SOI" Height="650" Width="1000"
+        Icon="\SystemImages\icon.png">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
             <RowDefinition Height="550"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Label Content="{Binding ElementName=FrMain, Path=Content.Title}" Width="500" Height="70"/>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="#4682B4">
+            <Image Source="\SystemImages\icon.png" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Label Content="{Binding ElementName=FrMain, Path=Content.Title}" Width="780" Height="70" Foreground="#E0FFFF" FontSize="30" FontWeight="Bold"/>
         </StackPanel>
 
         <StackPanel Grid.Row="1">

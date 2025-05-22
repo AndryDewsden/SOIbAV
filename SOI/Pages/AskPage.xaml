@@ -8,20 +8,175 @@
       d:DesignHeight="550" d:DesignWidth="1000"
       Title="Создание запроса">
 
-    <Grid Margin="20">
-        <StackPanel>
-            <TextBlock Text="Создание заявки на оборудование" FontSize="20" FontWeight="Bold" Margin="0,0,0,20"/>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="700"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
 
-            <Label Content="Имя пользователя:"/>
-            <TextBox x:Name="UserNameTextBox" Width="300" Margin="0,0,0,10"/>
+        <StackPanel Grid.Column="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition MinHeight="330"/>
+                    <RowDefinition Height="100"/>
+                </Grid.RowDefinitions>
 
-            <Label Content="Название оборудования:"/>
-            <TextBox x:Name="EquipmentNameTextBox" Width="300" Margin="0,0,0,10"/>
+                <StackPanel Grid.Row="0">
+                    <TextBlock Text="Создание заявки на оборудование" FontSize="20" FontWeight="Bold" Margin="0,0,0,20"/>
+                    <StackPanel x:Name="stp_request_look" Visibility="Collapsed">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Заявка №" FontWeight="Bold"/>
+                            <Label Content="" x:Name="l_request_number" Width="300"/>
+                        </StackPanel>
 
-            <Label Content="Описание заявки:"/>
-            <TextBox x:Name="DescriptionTextBox" Width="300" Height="100" Margin="0,0,0,10" TextWrapping="Wrap" AcceptsReturn="True"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Создатель заявки: " FontWeight="Bold"/>
+                            <Label Content="" x:Name="l_user_creator" Width="300"/>
+                        </StackPanel>
 
-            <Button Content="Отправить заявку" Width="150" Margin="0,10,0,0" Click="SubmitButton_Click"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Дата заявки: " FontWeight="Bold"/>
+                            <Label Content="" x:Name="l_date_creation" Width="300"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Тип оборудования: " FontWeight="Bold"/>
+                            <Label Content="" x:Name="l_asset_type" Width="300"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Комментарий: " FontWeight="Bold"/>
+                            <Label Content="" x:Name="l_comment" Width="300"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Статус заявки: " FontWeight="Bold"/>
+                            <Label Content="" x:Name="l_status" Width="300"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel x:Name="stp_request_create">
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <Label Content="Тип оборудования:" Height="30" Width="150" Margin="0" VerticalContentAlignment="Center" FontWeight="Bold"/>
+                            <ComboBox SelectedIndex="{Binding request_asset_type_id}" DisplayMemberPath="asset_type" x:Name="cbx_asset_type" Height="30" Width="300" Margin="0" VerticalContentAlignment="Center"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical" Margin="5">
+                            <Label Content="Описание заявки:"/>
+                            <Grid>
+                                <TextBox x:Name="tbx_discription" Text="{Binding request_comment}" Width="300" Height="100" Margin="0,0,0,10" TextWrapping="Wrap" AcceptsReturn="True" LostFocus="tbx_discription_LostFocus"/>
+                                <TextBox x:Name="tbx_discription_placeholder" Width="300" Height="100" Margin="0,0,0,10" TextWrapping="Wrap" AcceptsReturn="True" GotFocus="tbx_discription_placeholder_GotFocus"/>
+                            </Grid>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical" Margin="5" x:Name="stp_asset_char" Visibility="Collapsed">
+                            <Label Content="Вы берите подходяшее оборудование" FontWeight="Bold"/>
+                            <Label x:Name="l_asset_characteristics"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1">
+                    <StackPanel Orientation="Horizontal" x:Name="stp_accept" Visibility="Collapsed" IsEnabled="False">
+                        <Button x:Name="bt_accept_asset" Width="180" Height="30" Margin="5,0,5,0" Content="Принять" Background="#4682B4" Foreground="#E0FFFF" Click="bt_accept_asset_Click"/>
+                        <Button x:Name="bt_refuse" Width="180" Height="30" Margin="5,0,5,0" Content="Отмена" Background="#4682B4" Foreground="#E0FFFF" Click="bt_refuse_Click"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" x:Name="stp_user_request_create">
+                        <Button Content="Очистить форму" x:Name="bt_clear" Width="150" Height="30" Margin="5,0,5,0" Click="bt_clear_Click" Background="#4682B4" Foreground="#E0FFFF"/>
+                        <Button Content="Отправить заявку" x:Name="bt_send_request" Width="150" Height="30" Margin="5,0,5,0" Click="bt_send_request_Click" Background="#4682B4" Foreground="#E0FFFF"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" x:Name="stp_answer">
+                        <Label x:Name="l_answer_type" Width="400" Height="30" HorizontalContentAlignment="Center" FontWeight="Bold"/>
+                        <Label x:Name="l_answer_message" Width="400" Height="30"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" x:Name="stp_user_request_look" Visibility="Collapsed">
+                        <Button Content="Создать новую заявку" x:Name="bt_user_create" Width="150" Height="30" Margin="5,0,5,0" Click="bt_user_create_Click" Background="#4682B4" Foreground="#E0FFFF"/>
+                        <Button Content="Удалить заявку" x:Name="bt_delete" Width="150" Height="30" Margin="5,0,5,0" Click="bt_delete_Click" Background="#4682B4" Foreground="#E0FFFF"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" x:Name="stp_admin_request" Visibility="Collapsed">
+                        <Button Content="Создать новую заявку" x:Name="bt_admin_create" Width="150" Height="30" Margin="0" Click="bt_admin_create_Click" Background="#4682B4" Foreground="#E0FFFF"/>
+                        <Button x:Name="bt_accept_request" Width="150" Height="30" Margin="5,0,5,0" Content="Принять" Click="bt_accept_request_Click" Background="#4682B4" Foreground="#E0FFFF"/>
+                        <Button x:Name="bt_denied_request" Width="150" Height="30" Margin="5,0,5,0" Content="Отклонить" Click="bt_denied_request_Click" Background="#4682B4" Foreground="#E0FFFF"/>
+                        <Button x:Name="bt_froze_request" Width="150" Height="30" Margin="5,0,5,0" Content="Заморозить" Click="bt_froze_request_Click" Background="#4682B4" Foreground="#E0FFFF"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" x:Name="stp_requestList">
+            <ListView x:Name="listRequest" ScrollViewer.CanContentScroll="False" Background="#AFEEEE" Height="420" Margin="10" SelectionChanged="listRequest_SelectionChanged">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderThickness="1" BorderBrush="#000000" Background="#ffffff">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="200"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" Width="auto" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5">
+                                    <TextBlock>
+                                            <Run Text="Создатель: " FontWeight="Bold"/>
+                                            <Run Text="{Binding SOI_Users.user_first_name}"/>
+                                    </TextBlock>
+                                    <TextBlock>
+                                            <Run Text="Тип: " FontWeight="Bold"/>
+                                            <Run Text="{Binding SOI_Asset_Types.asset_type}"/>
+                                    </TextBlock>
+                                    <TextBlock>
+                                            <Run Text="Дата: " FontWeight="Bold"/>
+                                            <Run Text="{Binding request_date}"/>
+                                    </TextBlock>
+
+                                    <TextBlock>
+                                            <Run Text="Статус: " FontWeight="Bold"/>
+                                            <Run Text="{Binding SOI_Reques_Statuses.request_status_name}"/>
+                                    </TextBlock>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" x:Name="stp_assetList" Visibility="Collapsed" IsEnabled="False">
+            <ListView x:Name="listAsset" ScrollViewer.CanContentScroll="False" Background="#AFEEEE" Height="420" Margin="10" SelectionChanged="listAsset_SelectionChanged">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderThickness="1" BorderBrush="#000000" Background="#ffffff">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="200"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" Width="auto" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5">
+                                    <TextBlock>
+                                            <Run Text="Наименование: " FontWeight="Bold"/>
+                                            <Run Text="{Binding asset_name}"/>
+                                    </TextBlock>
+                                    <TextBlock>
+                                            <Run Text="Серийный номер: " FontWeight="Bold"/>
+                                            <Run Text="{Binding asset_serial_number}"/>
+                                    </TextBlock>
+                                    <TextBlock>
+                                            <Run Text="Локация: " FontWeight="Bold"/>
+                                            <Run Text="{Binding SOI_Locations.location_number}"/>
+                                    </TextBlock>
+
+                                    <TextBlock>
+                                            <Run Text="Статус: " FontWeight="Bold"/>
+                                            <Run Text="{Binding SOI_Reques_Statuses.request_status_name}"/>
+                                    </TextBlock>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackPanel>
     </Grid>
 </Page>
